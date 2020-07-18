@@ -1,12 +1,22 @@
 package com.garen.community.service;
 
+import com.garen.community.dao.AlphaDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Service
+//@Scope("prototype")
 public class AlphaService {
+    
+    @Autowired
+    @Qualifier("alphaHibernate")
+    private AlphaDao alphaDao;
+    
     public AlphaService() {
         System.out.println("Instantiate AlphaService");
     }
@@ -17,5 +27,9 @@ public class AlphaService {
     @PreDestroy
     public void destroy(){
         System.out.println("Destroy AlphaService");
+    }
+    
+    public String find(){
+        return alphaDao.select();
     }
 }
