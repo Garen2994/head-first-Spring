@@ -93,4 +93,5 @@ buildNumber.properties
 community.iml
 HELP.md
 mvnw
-mvnw.cmd
+mvnw.cmdcommunity/
+community/
