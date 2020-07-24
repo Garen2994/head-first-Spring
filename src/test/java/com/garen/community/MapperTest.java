@@ -1,5 +1,8 @@
 package com.garen.community;
+
+import com.garen.community.dao.DiscussPostMapper;
 import com.garen.community.dao.UserMapper;
+import com.garen.community.entity.DiscussPost;
 import com.garen.community.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,19 +21,23 @@ public class MapperTest {
     @Autowired
     private UserMapper userMapper;
     
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+    
     @Test
-    public void testSelectUser(){
+    public void testSelectUser() {
         User user = userMapper.selectById(101);
         System.out.println(user.toString());
         
         userMapper.selectByName("Liubei");
         System.out.println(user);
-    
+        
         userMapper.selectByEmail("nowcoder101@sina.com");
         System.out.println(user);
     }
+    
     @Test
-    public void testInsertUser(){
+    public void testInsertUser() {
         User user = new User();
         user.setUsername("test");
         user.setPassword("123456");
@@ -42,12 +50,26 @@ public class MapperTest {
         System.out.println(rows);
         System.out.println(user.getId());
     }
+    
     @Test
-    public void testUpdateUser(){
+    public void testUpdateUser() {
         int row = userMapper.updateStatus(150, 1);
         System.out.println(row);
         userMapper.updateHeader(150, "http://www.nowcoder.com/102.png");
         userMapper.updatePassword(150, "152994");
     }
     
+    @Test
+    public void testSelectPost() {
+        List<DiscussPost> posts = discussPostMapper.selectDiscussPosts(149, 0, 10);
+        for (DiscussPost post : posts) {
+            System.out.println(post);
+        }
+    }
+    
+    @Test
+    public void testSelectPostRows() {
+        int rows = discussPostMapper.selectDiscussPostRows(0);
+        System.out.println(rows);
+    }
 }
